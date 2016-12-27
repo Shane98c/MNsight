@@ -1,0 +1,8 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/c6c61b2213f50583f185d64c743f27d8ec2af6ae/mapbox-gl/index.d.ts",
+    "raw": "registry:dt/mapbox-gl#0.27.0+20161122230850",
+    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/c6c61b2213f50583f185d64c743f27d8ec2af6ae/mapbox-gl/index.d.ts"
+  }
+}
