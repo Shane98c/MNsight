@@ -3,7 +3,7 @@ import { UnderData } from './mockUnder';
 
 @Injectable()
 export class UnderService {
-  getUnder() {
+  getUnder = () => {
     console.log('gettingUnder', UnderData);
     return UnderData;
   }

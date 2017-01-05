@@ -10,18 +10,25 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiZmx5b3ZlcmNvdW50cnkiLCJhIjoiNDI2NzYzMmYxMzI5N
   providers: [UnderService]
 })
 
+
 export class HomePage {
-      constructor(public underService: UnderService) {}
-      ngAfterViewInit() {
-           var map = new mapboxgl.Map({
-               container: 'map',
-               style: 'mapbox://styles/mapbox/streets-v9'
-           });
-            map.on('click', function (e) {
-              this.getUnderReq();
-            });
+      constructor(private underService: UnderService) {
       }
-      getUnderReq(): void {
-        let underData = this.underService.getUnder();
+      ngOnInit() {
+        this.MapCtrl();
       }
+      getBelow(): void {
+        this.underService.getUnder();
+      }
+      MapCtrl = () => {
+        let map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v9'
+        });
+        map.on('click', function (e) {
+          console.log(this);
+          this.getBelow();
+        });
+      }
+
   }
