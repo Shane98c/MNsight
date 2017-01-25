@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      What's below?
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+ <ion-card *ngIf="under">
+
+  <ion-card-header>
+    depth to bedrock
+  </ion-card-header>
+
+  <ion-card-content>
+    {{under.geology.depth_to_bedrock}} ft
+  </ion-card-content>
+
+</ion-card>
+</ion-content>

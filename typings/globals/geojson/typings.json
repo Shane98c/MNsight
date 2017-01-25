@@ -1,0 +1,8 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/803dacaf1c9e3ca664352a586461503272175203/geojson/index.d.ts",
+    "raw": "registry:dt/geojson#0.0.0+20170113184913",
+    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/803dacaf1c9e3ca664352a586461503272175203/geojson/index.d.ts"
+  }
+}

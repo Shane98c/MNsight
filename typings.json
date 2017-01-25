@@ -1,0 +1,6 @@
+{
+  "globalDependencies": {
+    "geojson": "registry:dt/geojson#0.0.0+20170113184913",
+    "mapbox-gl": "github:dobrud/typed-mapbox-gl"
+  }
+}

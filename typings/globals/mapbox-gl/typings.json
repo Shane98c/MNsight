@@ -1,0 +1,10 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/dobrud/typed-mapbox-gl/master/typings.json",
+    "raw": "github:dobrud/typed-mapbox-gl",
+    "main": "mapbox-gl.d.ts",
+    "version": "0.0.18",
+    "name": "mapbox-gl"
+  }
+}
