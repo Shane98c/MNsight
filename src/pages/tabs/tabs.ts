@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-
+import { NavController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { AboutPage } from '../about/about';
+
 
 @Component({
   templateUrl: 'tabs.html'
@@ -11,8 +12,7 @@ export class TabsPage {
   // should be each tab's root Page
   tab1Root: any = HomePage;
   tab2Root: any = AboutPage;
-
-  constructor() {
+  constructor(public navCtrl: NavController) {
 
   }
 }

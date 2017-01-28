@@ -6,16 +6,39 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
- <ion-card *ngIf="under">
-
+<ion-content padding class="has-header" *ngIf="under">
+  <ion-card>
+   <ion-card-header>
+     Soil type
+   </ion-card-header>
+   <ion-card-content>
+     {{under.geology.soilName}}
+   </ion-card-content>
+ </ion-card>
+ <ion-card>
   <ion-card-header>
-    depth to bedrock
+    Glacial geology
   </ion-card-header>
-
   <ion-card-content>
-    {{under.geology.depth_to_bedrock}} ft
+    {{under.geology.glacial_geology}}
   </ion-card-content>
-
-</ion-card>
+  </ion-card>
+   <ion-card>
+    <ion-card-header>
+      Depth to bedrock
+    </ion-card-header>
+    <ion-card-content>
+      {{under.geology.depth_to_bedrock}} ft
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+   <ion-card-header>
+    Bedrock type/age
+   </ion-card-header>
+   <ion-card-content>
+      <div *ngFor="let rock of under.geology.geolLayerContent">
+        {{rock}}
+      </div>
+   </ion-card-content>
+  </ion-card>
 </ion-content>
