@@ -14,7 +14,6 @@ import * as mapboxgl from 'mapbox-gl/dist/mapbox-gl';
 })
 export class HomePage {
   public map : any;
-  public loading = this.loadingCtrl.create();
   constructor(public underService: UnderService, public navCtrl: NavController, public loadingCtrl: LoadingController) {
     (mapboxgl as any).accessToken = 'pk.eyJ1IjoiZmx5b3ZlcmNvdW50cnkiLCJhIjoiNDI2NzYzMmYxMzI5NWYxMDc0YTY5NzRiMzdlZDIyNTAifQ.x4T-qLEzRQMNFIdnkOkHKQ';
   }
@@ -29,21 +28,17 @@ export class HomePage {
   }
   MapCtrl(): void {
     this.map.on('click', (e) => {
-      console.log(e.lngLat);
-      let underReturn: any;
-      this.loading.present();
+      let loading = this.loadingCtrl.create();
+      loading.present();
       this.underService.getUnder(e.lngLat)
       .then(UnderData => {
-        underReturn = UnderData;
-        this.renderData(underReturn);
+        this.renderData(UnderData);
+        loading.dismiss();
       });
       // this.map.addControl(new mapboxgl.NavigationControl());
     });
   }
   renderData(under): void {
-    console.log('inrender', under);
-    this.loading.dismiss();
-
     this.navCtrl.push(AboutPage, {
       under: under
     });

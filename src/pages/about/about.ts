@@ -13,7 +13,6 @@ import { Geolocation } from 'ionic-native';
 export class AboutPage {
   public under: any;
   public curLoc: any;
-  public loading = this.loadingCtrl.create();
   constructor(private navCtrl: NavController, private navParams: NavParams, private loadingCtrl: LoadingController, private underService: UnderService) {
   }
 
@@ -22,13 +21,14 @@ export class AboutPage {
       this.under = this.navParams.get('under');
     } else {
       this.hereNow();
-      this.loading.present();
     }
   }
   ionViewWillLeave(){
     this.navParams.data = undefined;
   }
   hereNow():void {
+    let loading = this.loadingCtrl.create();
+    loading.present();
     Geolocation.getCurrentPosition(
           {enableHighAccuracy: true})
         .then((resp) => {
@@ -36,12 +36,10 @@ export class AboutPage {
            lat: resp.coords.latitude,
            lng: resp.coords.longitude
          };
-         console.log(loc);
          this.underService.getUnder(loc)
          .then(UnderData => {
            this.under = UnderData;
-           this.loading.dismiss();
-           console.log(this.under);
+           loading.dismiss();
         })
         .catch((error) => {
           console.log('Error getting location', error);

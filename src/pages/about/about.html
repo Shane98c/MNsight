@@ -1,44 +1,50 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
+    <ion-title class='aboutTitle'>
       What's below?
+      <span *ngIf="under" class='latlng'>
+        Latitude: {{under.point['epsg:4326'][1].toFixed(3)}}
+        <br>Longitude {{under.point['epsg:4326'][0].toFixed(3)}}
+      </span>
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="has-header" *ngIf="under">
-  <ion-card>
-   <ion-card-header>
-     Soil type
-   </ion-card-header>
-   <ion-card-content>
-     {{under.geology.soilName}}
-   </ion-card-content>
- </ion-card>
- <ion-card>
-  <ion-card-header>
-    Glacial geology
-  </ion-card-header>
-  <ion-card-content>
-    {{under.geology.glacial_geology}}
-  </ion-card-content>
-  </ion-card>
+<ion-content class='about-content'>
+  <div *ngIf="under">
+    <ion-card>
+     <ion-card-header class='card-head'>
+       Soil type
+     </ion-card-header>
+     <ion-card-content class='card-content'>
+       {{under.geology.soilName}}
+     </ion-card-content>
+   </ion-card>
    <ion-card>
-    <ion-card-header>
-      Depth to bedrock
+    <ion-card-header class='card-head'>
+      Glacial geology
     </ion-card-header>
-    <ion-card-content>
-      {{under.geology.depth_to_bedrock}} ft
+    <ion-card-content class='card-content'>
+      {{under.geology.glacial_geology}}
     </ion-card-content>
-  </ion-card>
-  <ion-card>
-   <ion-card-header>
-    Bedrock type/age
-   </ion-card-header>
-   <ion-card-content>
-      <div *ngFor="let rock of under.geology.geolLayerContent">
-        {{rock}}
-      </div>
-   </ion-card-content>
-  </ion-card>
+    </ion-card>
+     <ion-card>
+      <ion-card-header class='card-head'>
+        Depth to bedrock
+      </ion-card-header>
+      <ion-card-content class='card-content'>
+        {{under.geology.depth_to_bedrock}} ft
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+     <ion-card-header class='card-head'>
+      Bedrock type/age
+     </ion-card-header>
+     <ion-card-content class='card-content'>
+        <div *ngFor="let rock of under.geology.geolLayerContent">
+          {{rock}}
+        </div>
+     </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
