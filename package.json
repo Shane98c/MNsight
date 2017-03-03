@@ -23,7 +23,7 @@
     "ionic-angular": "2.0.0",
     "ionic-native": "2.2.11",
     "ionicons": "3.0.0",
-    "mapbox-gl": "^0.31.0",
+    "mapbox-gl": "git+https://git@github.com/maphubs/mapbox-gl-js.git",
     "rxjs": "5.0.0-beta.12",
     "sw-toolbox": "3.4.0",
     "zone.js": "0.6.26"

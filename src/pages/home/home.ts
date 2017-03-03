@@ -2,14 +2,13 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import { AboutPage } from '../about/about'
 import { UnderService } from '../../services/under.service'
-import * as mapboxgl from 'mapbox-gl/dist/mapbox-gl';
+import * as mapboxgl from 'mapbox-gl/dist/mapbox-gl-dev';
 // import { Map } from 'mapbox-gl';
 // import '../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  // styleUrls: ['../theme/mapbox-gl.css'],
   providers: [UnderService]
 })
 export class HomePage {
@@ -20,13 +19,26 @@ export class HomePage {
   ngOnInit(): void {
     this.map = new mapboxgl.Map({
       center: [-94.349742, 45.98909],
-      zoom: 5,
+      zoom: 10,
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v9'
     });
     this.MapCtrl();
   }
   MapCtrl(): void {
+    this.map.on('load', () => {
+      this.map.addSource('mnLidar', {
+        'type': 'arcgisraster',
+        "url":"http://arcgis.dnr.state.mn.us/arcgis/rest/services/elevation/mn_hillshade_web_mercator/MapServer?f=json",
+        "tileSize": 256
+      });
+      this.map.addLayer({
+         'id': 'mnLidar',
+         'type': 'raster',
+         'source':"mnLidar"
+       }, 'waterway-river-canal');
+     })
+
     this.map.on('click', (e) => {
       let loading = this.loadingCtrl.create();
       loading.present();
