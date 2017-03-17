@@ -3,4 +3,4 @@ Creating a mobile app to visualize landscape and geological data from the Minnes
 
 Topographic map data are from the MNTopo web app (http://arcgis.dnr.state.mn.us/maps/mntopo/)
 
-Geologic data are from (http://www.dnr.state.mn.us/lands_minerals/wuyh/ipad.html)
+Geologic data are from the What's Under My House app (http://www.dnr.state.mn.us/lands_minerals/wuyh/ipad.html)
