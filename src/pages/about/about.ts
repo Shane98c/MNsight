@@ -2,18 +2,17 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
 import { UnderService } from '../../services/under.service'
-import { Geolocation } from 'ionic-native';
-
+import { LocService } from '../../services/loc.service'
 
 @Component({
   selector: 'page-about',
   templateUrl: 'about.html',
-  providers: [UnderService, Geolocation]
+  providers: [UnderService, LocService]
 })
 export class AboutPage {
   public under: any;
   public curLoc: any;
-  constructor(private navCtrl: NavController, private navParams: NavParams, private loadingCtrl: LoadingController, private underService: UnderService) {
+  constructor(private navCtrl: NavController, private navParams: NavParams, private loadingCtrl: LoadingController, private underService: UnderService, public locService: LocService) {
   }
 
   ionViewWillEnter(){
@@ -29,21 +28,23 @@ export class AboutPage {
   hereNow():void {
     let loading = this.loadingCtrl.create();
     loading.present();
-    Geolocation.getCurrentPosition(
-          {enableHighAccuracy: true})
-        .then((resp) => {
-         let loc = {
-           lat: resp.coords.latitude,
-           lng: resp.coords.longitude
-         };
-         this.underService.getUnder(loc)
-         .then(UnderData => {
-           this.under = UnderData;
-           loading.dismiss();
-        })
-        .catch((error) => {
-          console.log('Error getting location', error);
-        });
-      });
+
+    this.locService.getCurrentPosition()
+      .subscribe(
+        res => {
+          let loc = {
+            lat: res.coords.latitude,
+            lng: res.coords.longitude
+          };
+          this.underService.getUnder(loc)
+          .then(UnderData => {
+            this.under = UnderData;
+            loading.dismiss();
+         })
+        },
+        err => {
+          alert('Geolocation unavailable.')
+        }
+    );
   }
 }
