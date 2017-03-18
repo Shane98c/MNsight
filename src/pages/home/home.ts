@@ -18,6 +18,9 @@ export class HomePage {
     (mapboxgl as any).accessToken = 'pk.eyJ1IjoiZmx5b3ZlcmNvdW50cnkiLCJhIjoiNDI2NzYzMmYxMzI5NWYxMDc0YTY5NzRiMzdlZDIyNTAifQ.x4T-qLEzRQMNFIdnkOkHKQ';
   }
   ngOnInit(): void {
+    this.mapCtrl();
+  }
+  mapCtrl(): void {
     let bounds:number[][]  = [
       [-97.53662, 42.994854], // Southwest coordinates
       [-89.49462, 49.24472443]  // Northeast coordinates
@@ -29,10 +32,6 @@ export class HomePage {
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v9'
     });
-    this.MapCtrl();
-  }
-  MapCtrl(): void {
-    //http://arcgis.dnr.state.mn.us/arcgis/rest/services/elevation/elevation_mn_1mDEM_cache/MapServer/tile/0/46/30
     this.map.on('load', () => {
       this.map.addSource('mnLidar', {
         'type': 'arcgisraster',
@@ -58,8 +57,7 @@ export class HomePage {
         'maxzoom': 20,
         'minzoom': 7
       }, 'waterway-river-canal');
-    this.map.setPaintProperty('colorTopo', 'raster-opacity', 0.25
-  );
+    this.map.setPaintProperty('colorTopo', 'raster-opacity', 0.25);
     })
     this.map.on('click', (e) => {
       let loading = this.loadingCtrl.create();
@@ -68,9 +66,12 @@ export class HomePage {
       .then(UnderData => {
         this.renderData(UnderData);
         loading.dismiss();
+      })
+      .catch(ex => {
+        console.error('Error getting Geology', ex);
+        alert('Error finding geological information');
+        loading.dismiss();
       });
-      // this.map.addControl(new mapboxgl.NavigationControl());
-      // this.map.addControl(new mapboxgl.GeolocateControl());
     });
   }
   fabLocate(): void {

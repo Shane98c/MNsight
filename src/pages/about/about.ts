@@ -24,11 +24,11 @@ export class AboutPage {
   }
   ionViewWillLeave(){
     this.navParams.data = undefined;
+    this.under = undefined;
   }
   hereNow():void {
     let loading = this.loadingCtrl.create();
     loading.present();
-
     this.locService.getCurrentPosition()
       .subscribe(
         res => {
@@ -40,7 +40,12 @@ export class AboutPage {
           .then(UnderData => {
             this.under = UnderData;
             loading.dismiss();
-         })
+           })
+           .catch(ex => {
+             console.error('Error getting Geology', ex);
+             alert('Error finding geological information');
+             loading.dismiss();
+           });
         },
         err => {
           alert('Geolocation unavailable.')
