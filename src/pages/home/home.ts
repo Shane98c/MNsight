@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
-import { AboutPage } from '../about/about'
-import { UnderService } from '../../services/under.service'
-import { LocService } from '../../services/loc.service'
 import * as mapboxgl from 'mapbox-gl/dist/mapbox-gl-dev';
-// import { Map } from 'mapbox-gl';
-// import '../../node_modules/mapbox-gl/dist/mapbox-gl.css';
+import { AboutPage } from '../about/about'
+import { UnderService } from '../../shared/under.service'
+import { LocService } from '../../shared/loc.service'
+import { layers } from '../../shared/layers'
+
+const accessToken = 'pk.eyJ1IjoiZmx5b3ZlcmNvdW50cnkiLCJhIjoiNDI2NzYzMmYxMzI5NWYxMDc0YTY5NzRiMzdlZDIyNTAifQ.x4T-qLEzRQMNFIdnkOkHKQ';
 
 @Component({
   selector: 'page-home',
@@ -15,7 +16,7 @@ import * as mapboxgl from 'mapbox-gl/dist/mapbox-gl-dev';
 export class HomePage {
   public map : any;
   constructor(public underService: UnderService, public locService: LocService, public navCtrl: NavController, public loadingCtrl: LoadingController) {
-    (mapboxgl as any).accessToken = 'pk.eyJ1IjoiZmx5b3ZlcmNvdW50cnkiLCJhIjoiNDI2NzYzMmYxMzI5NWYxMDc0YTY5NzRiMzdlZDIyNTAifQ.x4T-qLEzRQMNFIdnkOkHKQ';
+    (mapboxgl as any).accessToken = accessToken;
   }
   ngOnInit(): void {
     this.mapCtrl();
@@ -33,16 +34,8 @@ export class HomePage {
       style: 'mapbox://styles/mapbox/streets-v9'
     });
     this.map.on('load', () => {
-      this.map.addSource('mnLidar', {
-        'type': 'arcgisraster',
-        "url":"http://arcgis.dnr.state.mn.us/arcgis/rest/services/elevation/mn_hillshade_web_mercator/MapServer?f=json",
-        "tileSize": 256
-      });
-      this.map.addSource('colorTopo', {
-        'type': 'arcgisraster',
-        "url":"http://arcgis.dnr.state.mn.us/arcgis/rest/services/elevation/elevation_mn_1mDEM_cache/MapServer?f=json",
-        "tileSize": 256
-      });
+      this.map.addSource('mnLidar', layers.mnLidar);
+      this.map.addSource('colorTopo', layers.colorTopo);
       this.map.addLayer({
          'id': 'mnLidar',
          'type': 'raster',
@@ -60,18 +53,22 @@ export class HomePage {
     this.map.setPaintProperty('colorTopo', 'raster-opacity', 0.25);
     })
     this.map.on('click', (e) => {
-      let loading = this.loadingCtrl.create();
-      loading.present();
-      this.underService.getUnder(e.lngLat)
-      .then(UnderData => {
-        this.renderData(UnderData);
-        loading.dismiss();
-      })
-      .catch(ex => {
-        console.error('Error getting Geology', ex);
-        alert('Error finding geological information');
-        loading.dismiss();
-      });
+      this.getTappedGeo(e);
+      //add marker in the future
+    });
+  }
+  getTappedGeo(e): void {
+    let loading = this.loadingCtrl.create();
+    loading.present();
+    this.underService.getUnder(e.lngLat)
+    .then(UnderData => {
+      this.renderData(UnderData);
+      loading.dismiss();
+    })
+    .catch(ex => {
+      console.error('Error getting Geology', ex);
+      loading.dismiss();
+      alert('Error finding geological information');
     });
   }
   fabLocate(): void {

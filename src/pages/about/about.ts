@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
-import { UnderService } from '../../services/under.service'
-import { LocService } from '../../services/loc.service'
+import { UnderService } from '../../shared/under.service'
+import { LocService } from '../../shared/loc.service'
 
 @Component({
   selector: 'page-about',
@@ -43,8 +43,8 @@ export class AboutPage {
            })
            .catch(ex => {
              console.error('Error getting Geology', ex);
-             alert('Error finding geological information');
              loading.dismiss();
+             alert('Error finding geological information');
            });
         },
         err => {
