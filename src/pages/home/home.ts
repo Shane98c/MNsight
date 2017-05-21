@@ -14,7 +14,7 @@ const accessToken = 'pk.eyJ1IjoiZmx5b3ZlcmNvdW50cnkiLCJhIjoiNDI2NzYzMmYxMzI5NWYx
   providers: [UnderService, LocService]
 })
 export class HomePage {
-  public map : any;
+  public map: any;
   constructor(public underService: UnderService, public locService: LocService, public navCtrl: NavController, public loadingCtrl: LoadingController) {
     (mapboxgl as any).accessToken = accessToken;
   }
