@@ -22,7 +22,7 @@ export class HomePage {
     this.mapCtrl();
   }
   mapCtrl(): void {
-    let bounds:number[][]  = [
+    let bounds:number[][] = [
       [-97.53662, 42.994854], // Southwest coordinates
       [-89.49462, 49.24472443]  // Northeast coordinates
     ]
@@ -71,12 +71,43 @@ export class HomePage {
       alert('Error finding geological information');
     });
   }
+  hereNow():void {
+    let loading = this.loadingCtrl.create();
+    loading.present();
+    this.locService.getCurrentPosition()
+      .subscribe(
+        res => {
+          let loc = {
+            lat: res.coords.latitude,
+            lng: res.coords.longitude
+          };
+          this.underService.getUnder(loc)
+          .then(UnderData => {
+            this.renderData(UnderData);
+            loading.dismiss();
+           })
+           .catch(ex => {
+             console.error('Error getting Geology', ex);
+             loading.dismiss();
+             alert('Error finding geological information');
+           });
+        },
+        err => {
+          alert('Geolocation unavailable.')
+        }
+    );
+  }
   fabLocate(): void {
     this.locService.getCurrentPosition()
       .subscribe(
         res => {
           let center: number[] = [res.coords.longitude, res.coords.latitude]
           this.map.flyTo({center: center, zoom: 17});
+          let el = document.createElement('div');
+          el.id = 'marker';
+          new mapboxgl.Marker(el)
+            .setLngLat(center)
+            .addTo(this.map);
         },
         err => {
           alert('Geolocation unavailable.')
