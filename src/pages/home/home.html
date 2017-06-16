@@ -1,7 +1,9 @@
-<button ion-button block icon-left class='bottomButton' [round]=false (click)="hereNow()">
-  <ion-icon name="md-arrow-down"></ion-icon>
-  below me now
-
+<button ion-button block class='bottomButton' [round]=false (click)="hereNow()">
+  <div>
+    <ion-icon name='md-arrow-down'></ion-icon>
+    <br>
+    <label>below me now</label>
+  </div>
 </button>
 <ion-content>
   <div ion-fixed id='map' class='mapContainer'></div>

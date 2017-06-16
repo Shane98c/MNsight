@@ -15,6 +15,7 @@ const accessToken = 'pk.eyJ1IjoiZmx5b3ZlcmNvdW50cnkiLCJhIjoiNDI2NzYzMmYxMzI5NWYx
 })
 export class HomePage {
   public map: any;
+  public locationMarker: any;
   constructor(public underService: UnderService, public locService: LocService, public navCtrl: NavController, public loadingCtrl: LoadingController) {
     (mapboxgl as any).accessToken = accessToken;
   }
@@ -51,11 +52,31 @@ export class HomePage {
         'minzoom': 7
       }, 'waterway-river-canal');
     this.map.setPaintProperty('colorTopo', 'raster-opacity', 0.25);
+    this.addLocationMarker(8);
     })
     this.map.on('click', (e) => {
       this.getTappedGeo(e);
       //add marker in the future
     });
+  }
+  addLocationMarker(zoom): void {
+    let el = document.createElement('div');
+    el.id = 'marker';
+    this.locationMarker = new mapboxgl.Marker(el)
+    this.locService.getCurrentPosition()
+      .subscribe(
+        res => {
+          let center: number[] = [res.coords.longitude, res.coords.latitude]
+          this.map.flyTo({center: center, zoom: zoom});
+          this.locationMarker
+            .setLngLat(center)
+            .addTo(this.map);
+        },
+        err => {
+          alert('Geolocation unavailable.')
+        }
+    );
+
   }
   getTappedGeo(e): void {
     let loading = this.loadingCtrl.create();
@@ -98,16 +119,12 @@ export class HomePage {
     );
   }
   fabLocate(): void {
+    this.locationMarker.remove();
+    this.addLocationMarker(15);
     this.locService.getCurrentPosition()
       .subscribe(
         res => {
           let center: number[] = [res.coords.longitude, res.coords.latitude]
-          this.map.flyTo({center: center, zoom: 17});
-          let el = document.createElement('div');
-          el.id = 'marker';
-          new mapboxgl.Marker(el)
-            .setLngLat(center)
-            .addTo(this.map);
         },
         err => {
           alert('Geolocation unavailable.')
