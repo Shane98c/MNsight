@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavParams } from 'ionic-angular';
+import { NavParams, PopoverController } from 'ionic-angular';
+import { PopoverPage } from '../../shared/popover'
 
 @Component({
   selector: 'page-about',
@@ -9,7 +10,7 @@ import { NavParams } from 'ionic-angular';
 export class AboutPage {
   public under: any;
   public mapClip: string;
-  constructor(private navParams: NavParams) {
+  constructor(private navParams: NavParams, public popoverCtrl: PopoverController) {
   }
 
   ionViewWillEnter(){
@@ -20,10 +21,10 @@ export class AboutPage {
     }
     this.buildMapClip(loc);
   }
-  ionViewWillLeave(){
-    this.navParams.data = undefined;
-    this.under = undefined;
-  }
+  // ionViewWillLeave() {
+  //   this.navParams.data = undefined;
+  //   this.under = undefined;
+  // }
   buildMapClip(loc):void {
     this.mapClip = [
       'https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v9/static/pin-s(',
@@ -32,6 +33,12 @@ export class AboutPage {
       loc.lng,',',loc.lat,
       ',10,0,0/800x325@2x?access_token=pk.eyJ1IjoiZmx5b3ZlcmNvdW50cnkiLCJhIjoiNDI2NzYzMmYxMzI5NWYxMDc0YTY5NzRiMzdlZDIyNTAifQ.x4T-qLEzRQMNFIdnkOkHKQ'
     ].join('');
+  }
+  showInfoPopover(event) {
+    let popover = this.popoverCtrl.create(PopoverPage);
+    popover.present({
+      ev: event
+    });
   }
 
 }

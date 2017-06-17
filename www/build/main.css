@@ -21339,3 +21339,7 @@ sub {
 .inactive {
   display: none;
 }
+
+.info-content {
+  padding: 10px;
+}

@@ -2,10 +2,11 @@
   <ion-navbar>
     <ion-title class='aboutTitle'>
       What's below?
-      <span *ngIf="under" class='latlng'>
+      <div *ngIf="under" class='latlng'>
         Latitude: {{under.point['epsg:4326'][1].toFixed(3)}}
         <br>Longitude {{under.point['epsg:4326'][0].toFixed(3)}}
-      </span>
+      </div>
+      <ion-icon name="md-more" (click)="showInfoPopover($event)"></ion-icon>
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -47,5 +48,5 @@
      </ion-card-content>
     </ion-card>
   </div>
-  <img [src]="mapClip" />
+  <img *ngIf="mapClip" [src]="mapClip" />
 </ion-content>
