@@ -21277,7 +21277,7 @@ sub {
 }
 
 .card-content {
-  font-size: 1.9rem;
+  font-size: 1.8rem;
 }
 
 .card-head {
@@ -21293,6 +21293,10 @@ sub {
 
 .latlng {
   font-size: 1rem;
+  float: right;
+  position: absolute;
+  right: 50px;
+  text-align: right;
 }
 
 .aboutTitle .toolbar-title {
@@ -21333,13 +21337,13 @@ sub {
   height: 20px;
   border-radius: 50%;
   border: 2px solid white;
-  box-shadow: 0px -3px 13px 3px rgba(0, 0, 0, 0.13);
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.35);
 }
 
 .inactive {
   display: none;
 }
 
-.info-content {
-  padding: 10px;
+.info-bg {
+  background-color: #e1e1e1;
 }

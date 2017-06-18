@@ -2,11 +2,13 @@
   <ion-navbar>
     <ion-title class='aboutTitle'>
       What's below?
-      <div *ngIf="under" class='latlng'>
+      <span *ngIf="under" class='latlng'>
         Latitude: {{under.point['epsg:4326'][1].toFixed(3)}}
         <br>Longitude {{under.point['epsg:4326'][0].toFixed(3)}}
-      </div>
-      <ion-icon name="md-more" (click)="showInfoPopover($event)"></ion-icon>
+      </span>
+      <button ion-button icon-only clear style="color: #424242;" (click)="showInfoPopover($event)">
+        <ion-icon name="md-more" large></ion-icon>
+      </button>
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -42,9 +44,9 @@
       Bedrock type/age
      </ion-card-header>
      <ion-card-content class='card-content'>
-        <div *ngFor="let rock of under.geology.geolLayerContent">
+        <ion-list *ngFor="let rock of under.geology.geolLayerContent">
           {{rock}}
-        </div>
+        </ion-list>
      </ion-card-content>
     </ion-card>
   </div>

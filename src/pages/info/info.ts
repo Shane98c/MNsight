@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NavParams } from 'ionic-angular';
 
 @Component({
   selector: 'page-info',
@@ -7,7 +6,7 @@ import { NavParams } from 'ionic-angular';
   providers: []
 })
 export class InfoPage {
-  constructor(private navParams: NavParams) {
+  constructor() {
   }
 
 }

@@ -7,7 +7,8 @@ import { InfoPage } from '../pages/info/info';
   template: `
     <ion-list>
       <ion-list-header>MNgeo</ion-list-header>
-      <button ion-item (click)="openPage()">About the app</button>
+      <button ion-item (click)="openPage()"><ion-icon name="md-information-circle"></ion-icon>
+      About the app</button>
     </ion-list>
   `
 })
