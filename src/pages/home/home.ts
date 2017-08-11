@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
-import * as mapboxgl from 'mapbox-gl/dist/mapbox-gl-dev';
-import { AboutPage } from '../about/about'
-import { UnderService } from '../../shared/under.service'
-import { LocService } from '../../shared/loc.service'
-import { layers } from '../../shared/layers'
+import * as mapboxgl from 'mapbox-gl';
+import { AboutPage } from '../about/about';
+import { UnderService } from '../../shared/under.service';
+import { LocService } from '../../shared/loc.service';
+import { layers } from '../../shared/layers';
+import * as ArcGISRasterTileSource from 'mapbox-gl-arcgis-tiled-map-service';
 
 const accessToken = 'pk.eyJ1IjoiZmx5b3ZlcmNvdW50cnkiLCJhIjoiNDI2NzYzMmYxMzI5NWYxMDc0YTY5NzRiMzdlZDIyNTAifQ.x4T-qLEzRQMNFIdnkOkHKQ';
 
@@ -35,24 +36,37 @@ export class HomePage {
       style: 'mapbox://styles/mapbox/streets-v9'
     });
     this.map.on('load', () => {
+      this.map.addSourceType('arcgisraster', ArcGISRasterTileSource, function(err) {
+        if(err){
+          /*do something*/
+        }
+      });
       this.map.addSource('mnLidar', layers.mnLidar);
       this.map.addSource('colorTopo', layers.colorTopo);
       this.map.addLayer({
          'id': 'mnLidar',
          'type': 'raster',
          'source':"mnLidar",
-         'maxzoom': 20,
+         'maxzoom': 22,
          'minzoom': 7
        }, 'waterway-river-canal');
      this.map.addLayer({
         'id': 'colorTopo',
         'type': 'raster',
         'source':"colorTopo",
-        'maxzoom': 20,
+        'maxzoom': 22,
         'minzoom': 7
       }, 'waterway-river-canal');
     this.map.setPaintProperty('colorTopo', 'raster-opacity', 0.25);
     this.addLocationMarker(8);
+    let nav = new mapboxgl.NavigationControl();
+    this.map.addControl(nav, 'top-left');
+    // this.map.addControl(new mapboxgl.GeolocateControl({
+    //     positionOptions: {
+    //         enableHighAccuracy: true
+    //     },
+    //     trackUserLocation: true
+    // }));
     })
     this.map.on('click', (e) => {
       this.getTappedGeo(e);
