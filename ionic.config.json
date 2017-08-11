@@ -1,6 +1,5 @@
 {
   "name": "MNgeo2.1",
   "app_id": "",
-  "v2": true,
-  "typescript": true
+  "type": "ionic-angular"
 }

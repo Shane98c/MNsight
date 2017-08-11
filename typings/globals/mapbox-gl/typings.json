@@ -1,8 +1,10 @@
 {
   "resolution": "main",
   "tree": {
-    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/a1b6a0884a9c0725a04c08a23b97dd803baed476/mapbox-gl/index.d.ts",
-    "raw": "registry:dt/mapbox-gl#0.29.0+20170103183059",
-    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/a1b6a0884a9c0725a04c08a23b97dd803baed476/mapbox-gl/index.d.ts"
+    "src": "https://raw.githubusercontent.com/dobrud/typed-mapbox-gl/master/typings.json",
+    "raw": "github:dobrud/typed-mapbox-gl",
+    "main": "mapbox-gl.d.ts",
+    "version": "0.0.18",
+    "name": "mapbox-gl"
   }
 }
