@@ -61,12 +61,6 @@ export class HomePage {
     this.addLocationMarker(8);
     let nav = new mapboxgl.NavigationControl();
     this.map.addControl(nav, 'top-left');
-    // this.map.addControl(new mapboxgl.GeolocateControl({
-    //     positionOptions: {
-    //         enableHighAccuracy: true
-    //     },
-    //     trackUserLocation: true
-    // }));
     })
     this.map.on('click', (e) => {
       this.getTappedGeo(e);
@@ -77,13 +71,12 @@ export class HomePage {
     let el = document.createElement('div');
     el.id = 'marker';
     this.locationMarker = new mapboxgl.Marker(el)
-    this.locService.getCurrentPosition()
+    this.locService.watchLocation()
       .subscribe(
         res => {
-          let center: number[] = [res.coords.longitude, res.coords.latitude]
-          this.map.flyTo({center: center, zoom: zoom});
+          let loc: number[] = [res.coords.longitude, res.coords.latitude];
           this.locationMarker
-            .setLngLat(center)
+            .setLngLat(loc)
             .addTo(this.map);
         },
         err => {
@@ -133,12 +126,16 @@ export class HomePage {
     );
   }
   fabLocate(): void {
-    this.locationMarker.remove();
-    this.addLocationMarker(15);
+    // this.addLocationMarker(15);
     this.locService.getCurrentPosition()
       .subscribe(
         res => {
-          let center: number[] = [res.coords.longitude, res.coords.latitude]
+          let center: number[] = [res.coords.longitude, res.coords.latitude];
+          this.locationMarker.remove();
+          this.locationMarker
+            .setLngLat(center)
+            .addTo(this.map);
+          this.map.flyTo({center: center, zoom: 15});
         },
         err => {
           alert('Geolocation unavailable.')
