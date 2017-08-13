@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController, ToastController } from 'ionic-angular';
 import * as mapboxgl from 'mapbox-gl';
 import { AboutPage } from '../about/about';
 import { UnderService } from '../../shared/under.service';
@@ -16,8 +16,9 @@ const accessToken = 'pk.eyJ1IjoiZmx5b3ZlcmNvdW50cnkiLCJhIjoiNDI2NzYzMmYxMzI5NWYx
 })
 export class HomePage {
   public map: any;
+  public currentLocation: any;
   public locationMarker: any;
-  constructor(public underService: UnderService, public locService: LocService, public navCtrl: NavController, public loadingCtrl: LoadingController) {
+  constructor(public underService: UnderService, public locService: LocService, public navCtrl: NavController, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
     (mapboxgl as any).accessToken = accessToken;
   }
   ngOnInit(): void {
@@ -32,6 +33,7 @@ export class HomePage {
       center: [-94.349742, 45.98909],
       zoom: 7,
       maxBounds: bounds,
+      maxZoom: 17,
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v9'
     });
@@ -47,14 +49,14 @@ export class HomePage {
          'id': 'mnLidar',
          'type': 'raster',
          'source':"mnLidar",
-         'maxzoom': 22,
+         'maxzoom': 18,
          'minzoom': 7
        }, 'waterway-river-canal');
      this.map.addLayer({
         'id': 'colorTopo',
         'type': 'raster',
         'source':"colorTopo",
-        'maxzoom': 22,
+        'maxzoom': 18,
         'minzoom': 7
       }, 'waterway-river-canal');
     this.map.setPaintProperty('colorTopo', 'raster-opacity', 0.25);
@@ -74,13 +76,18 @@ export class HomePage {
     this.locService.watchLocation()
       .subscribe(
         res => {
-          let loc: number[] = [res.coords.longitude, res.coords.latitude];
+          this.currentLocation = [res.coords.longitude, res.coords.latitude];
           this.locationMarker
-            .setLngLat(loc)
+            .setLngLat(this.currentLocation)
             .addTo(this.map);
         },
         err => {
-          alert('Geolocation unavailable.')
+          let toast = this.toastCtrl.create({
+            message: 'Geolocation unavailable',
+            duration: 3000,
+            position: 'top'
+          });
+          toast.present();
         }
     );
 
@@ -96,51 +103,53 @@ export class HomePage {
     .catch(ex => {
       console.error('Error getting Geology', ex);
       loading.dismiss();
-      alert('Error finding geological information');
+      let toast = this.toastCtrl.create({
+        message: 'Error finding geological information.',
+        duration: 3000,
+        position: 'top'
+      });
+      toast.present();
     });
   }
   hereNow():void {
-    let loading = this.loadingCtrl.create();
-    loading.present();
-    this.locService.getCurrentPosition()
-      .subscribe(
-        res => {
-          let loc = {
-            lat: res.coords.latitude,
-            lng: res.coords.longitude
-          };
-          this.underService.getUnder(loc)
-          .then(UnderData => {
-            this.renderData(UnderData);
-            loading.dismiss();
-           })
-           .catch(ex => {
-             console.error('Error getting Geology', ex);
-             loading.dismiss();
-             alert('Error finding geological information');
-           });
-        },
-        err => {
-          alert('Geolocation unavailable.')
-        }
-    );
+    if (this.currentLocation) {
+      let loading = this.loadingCtrl.create();
+      loading.present();
+      let loc = {
+        lat: this.currentLocation[1],
+        lng: this.currentLocation[0]
+      };
+      this.underService.getUnder(loc)
+      .then(UnderData => {
+        this.renderData(UnderData);
+        loading.dismiss();
+       })
+       .catch(ex => {
+         console.error('Error getting Geology', ex);
+         loading.dismiss();
+         let toast = this.toastCtrl.create({
+           message: 'Error finding geological information.',
+           duration: 3000,
+           position: 'top'
+         });
+         toast.present();
+       });
+    } else {
+      let toast = this.toastCtrl.create({
+        message: 'current location unknown.',
+        duration: 3000,
+        position: 'top'
+      });
+      toast.present();
+    }
   }
   fabLocate(): void {
-    // this.addLocationMarker(15);
-    this.locService.getCurrentPosition()
-      .subscribe(
-        res => {
-          let center: number[] = [res.coords.longitude, res.coords.latitude];
-          this.locationMarker.remove();
-          this.locationMarker
-            .setLngLat(center)
-            .addTo(this.map);
-          this.map.flyTo({center: center, zoom: 15});
-        },
-        err => {
-          alert('Geolocation unavailable.')
-        }
-    );
+    let center = this.currentLocation;
+    this.locationMarker.remove();
+    this.locationMarker
+      .setLngLat(center)
+      .addTo(this.map);
+    this.map.flyTo({center: center, zoom: 15});
   }
   renderData(under): void {
     this.navCtrl.push(AboutPage, {
