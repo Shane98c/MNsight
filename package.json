@@ -1,5 +1,5 @@
 {
-    "name": "geoMN",
+    "name": "MNsight",
     "author": "Shane Loeffler",
     "homepage": "fc.umn.edu",
     "private": true,
@@ -51,7 +51,7 @@
         "cordova-plugin-splashscreen"
     ],
     "cordovaPlatforms": [],
-    "description": "geoMN",
+    "description": "MNsight",
     "cordova": {
         "plugins": {
             "cordova-plugin-console": {},

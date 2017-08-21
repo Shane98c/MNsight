@@ -1,4 +1,4 @@
-# geoMN
+# MNsight
 Mobile app to visualize landscape and geological data from the [Minnesota Geological Survey](http://www.mngs.umn.edu/) and [MN Department of National Resources](http://www.dnr.state.mn.us/index.html).
 
 ![image](https://cloud.githubusercontent.com/assets/14908734/26281440/e5431b02-3dbb-11e7-8bca-b34f2e20d108.png)
@@ -6,7 +6,7 @@ Mobile app to visualize landscape and geological data from the [Minnesota Geolog
 
 demo: http://z.umn.edu/mngeo
 
-# Using geoMN
+# Using MNsight
 
 Tap anywhere on the map within Minnesota to get information about the soil, glacial geology, depth of the bedrock below the land's surface, and types and ages of the bedrock in that location. Press the 'below me now' button to instantly get the above information about your current GPS determined location.
 

@@ -4,11 +4,14 @@
     <br>
     <label>below me now</label>
   </div>
+  <button ion-button icon-only clear class="info" (click)="showInfoPopover(event)">
+    <ion-icon name="information-circle" large></ion-icon>
+  </button>
 </button>
 <ion-content>
   <div ion-fixed id='map' class='mapContainer'></div>
 </ion-content>
-<ion-fab bottom right style="transform: translateY(-55px);">
+<ion-fab bottom right style="transform: translateY(-65px);">
     <button ion-fab (click)="fabLocate()" >
     	<ion-icon name="md-locate"></ion-icon>
     </button>

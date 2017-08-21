@@ -6,7 +6,7 @@ import { InfoPage } from '../pages/info/info';
 @Component({
   template: `
     <ion-list>
-      <ion-list-header>geoMN</ion-list-header>
+      <ion-list-header>MNsight</ion-list-header>
       <button ion-item (click)="openPage()"><ion-icon name="md-information-circle"></ion-icon>
       About the app</button>
     </ion-list>

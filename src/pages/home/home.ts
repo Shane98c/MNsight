@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, ToastController } from 'ionic-angular';
+import { NavController, LoadingController, ToastController, PopoverController } from 'ionic-angular';
 import * as mapboxgl from 'mapbox-gl';
 import { AboutPage } from '../about/about';
 import { UnderService } from '../../shared/under.service';
 import { LocService } from '../../shared/loc.service';
 import { layers } from '../../shared/layers';
 import * as ArcGISRasterTileSource from 'mapbox-gl-arcgis-tiled-map-service';
+import { PopoverPage } from '../../shared/popover';
 
 const accessToken = 'pk.eyJ1IjoiZmx5b3ZlcmNvdW50cnkiLCJhIjoiNDI2NzYzMmYxMzI5NWYxMDc0YTY5NzRiMzdlZDIyNTAifQ.x4T-qLEzRQMNFIdnkOkHKQ';
 
@@ -18,51 +19,40 @@ export class HomePage {
   public map: any;
   public currentLocation: any;
   public locationMarker: any;
-  constructor(public underService: UnderService, public locService: LocService, public navCtrl: NavController, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
+  public bounds:number[][] = [
+    [-97.53662, 42.994854], // Southwest coordinates
+    [-89.49462, 49.24472443]  // Northeast coordinates
+  ];
+  constructor(public underService: UnderService, public locService: LocService, public navCtrl: NavController, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public popoverCtrl: PopoverController) {
     (mapboxgl as any).accessToken = accessToken;
   }
   ngOnInit(): void {
     this.mapCtrl();
   }
   mapCtrl(): void {
-    let bounds:number[][] = [
-      [-97.53662, 42.994854], // Southwest coordinates
-      [-89.49462, 49.24472443]  // Northeast coordinates
-    ]
     this.map = new mapboxgl.Map({
-      center: [-94.349742, 45.98909],
+      center: [-94.349, 45.989],
       zoom: 7,
-      maxBounds: bounds,
+      maxBounds: this.bounds,
       maxZoom: 17,
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v9'
     });
     this.map.on('load', () => {
+      //setup initial map state
       this.map.addSourceType('arcgisraster', ArcGISRasterTileSource, function(err) {
         if(err){
-          /*do something*/
+          console.log('error adding source');
         }
       });
-      this.map.addSource('mnLidar', layers.mnLidar);
-      this.map.addSource('colorTopo', layers.colorTopo);
-      this.map.addLayer({
-         'id': 'mnLidar',
-         'type': 'raster',
-         'source':"mnLidar",
-         'maxzoom': 18,
-         'minzoom': 7
-       }, 'waterway-river-canal');
-     this.map.addLayer({
-        'id': 'colorTopo',
-        'type': 'raster',
-        'source':"colorTopo",
-        'maxzoom': 18,
-        'minzoom': 7
-      }, 'waterway-river-canal');
-    this.map.setPaintProperty('colorTopo', 'raster-opacity', 0.25);
-    this.addLocationMarker(8);
-    let nav = new mapboxgl.NavigationControl();
-    this.map.addControl(nav, 'top-left');
+      this.map.addSource('mnLidar', layers.mnLidarSource);
+      this.map.addSource('colorTopo', layers.colorTopoSource);
+      this.map.addLayer(layers.mnLidarLayer, 'waterway-river-canal');
+      this.map.addLayer(layers.colorTopoLayer, 'waterway-river-canal');
+      this.map.setPaintProperty('colorTopo', 'raster-opacity', 0.25);
+      let nav = new mapboxgl.NavigationControl();
+      this.map.addControl(nav, 'top-left');
+      this.addLocationMarker(8);
     })
     this.map.on('click', (e) => {
       this.getTappedGeo(e);
@@ -80,6 +70,7 @@ export class HomePage {
           this.locationMarker
             .setLngLat(this.currentLocation)
             .addTo(this.map);
+          this.map.flyTo({center: this.currentLocation, zoom: 9});
         },
         err => {
           let toast = this.toastCtrl.create({
@@ -154,6 +145,12 @@ export class HomePage {
   renderData(under): void {
     this.navCtrl.push(AboutPage, {
       under: under
+    });
+  }
+  showInfoPopover(event) {
+    let popover = this.popoverCtrl.create(PopoverPage);
+    popover.present({
+      ev: event
     });
   }
 }

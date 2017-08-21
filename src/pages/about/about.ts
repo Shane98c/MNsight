@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavParams, PopoverController } from 'ionic-angular';
-import { PopoverPage } from '../../shared/popover'
+import { PopoverPage } from '../../shared/popover';
 
 @Component({
   selector: 'page-about',
@@ -21,10 +21,6 @@ export class AboutPage {
     }
     this.buildMapClip(loc);
   }
-  // ionViewWillLeave() {
-  //   this.navParams.data = undefined;
-  //   this.under = undefined;
-  // }
   buildMapClip(loc):void {
     this.mapClip = [
       'https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v9/static/pin-s(',
