@@ -25513,6 +25513,15 @@ ion-navbar.toolbar {
   left: 0;
 }
 
+.mapboxgl-ctrl-bottom-left {
+  bottom: 50px;
+}
+
+.mapboxgl-ctrl-top-right {
+  top: 15px;
+  left: 0;
+}
+
 .info-bg {
   background-color: #e1e1e1;
 }

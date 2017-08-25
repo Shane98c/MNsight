@@ -52,6 +52,7 @@ export class HomePage {
       this.map.setPaintProperty('colorTopo', 'raster-opacity', 0.25);
       let nav = new mapboxgl.NavigationControl();
       this.map.addControl(nav, 'top-left');
+      this.map.addControl(new mapboxgl.AttributionControl(), 'top-right');
       this.addLocationMarker(8);
     })
     this.map.on('click', (e) => {
