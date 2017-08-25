@@ -6,8 +6,8 @@ page-home {
   height: 100%;
 }
 .bottomButton {
-  z-index:111111;
-  position:absolute;
+  z-index: 111111;
+  position: absolute;
   bottom:0;
   padding:0;
   margin-bottom:0px;
@@ -21,7 +21,7 @@ page-home {
 }
 .info {
   position: absolute;
-  right: 2%;
+  right: 13px;
 }
 #marker {
   background-color: #2196F3;
@@ -33,4 +33,8 @@ page-home {
 }
 .inactive {
   display: none;
+}
+.mapboxgl-ctrl-top-left {
+    top: 10px;
+    left: 0;
 }

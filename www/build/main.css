@@ -25491,7 +25491,7 @@ ion-navbar.toolbar {
 
 .info {
   position: absolute;
-  right: 2%;
+  right: 13px;
 }
 
 #marker {
@@ -25506,6 +25506,11 @@ ion-navbar.toolbar {
 
 .inactive {
   display: none;
+}
+
+.mapboxgl-ctrl-top-left {
+  top: 10px;
+  left: 0;
 }
 
 .info-bg {
