@@ -147,7 +147,8 @@ export class HomePage {
       under: under
     });
   }
-  showInfoPopover(event) {
+  showInfoPopover(event: Event) {
+    event.stopPropagation();
     let popover = this.popoverCtrl.create(PopoverPage);
     popover.present({
       ev: event
