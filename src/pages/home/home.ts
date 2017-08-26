@@ -71,7 +71,6 @@ export class HomePage {
           this.locationMarker
             .setLngLat(this.currentLocation)
             .addTo(this.map);
-          this.map.flyTo({center: this.currentLocation, zoom: 9});
         },
         err => {
           let toast = this.toastCtrl.create({
