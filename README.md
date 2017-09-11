@@ -8,7 +8,7 @@ demo: http://z.umn.edu/mngeo
 
 # Using MNsight
 
-Tap anywhere on the map within Minnesota to get information about the soil, glacial geology, depth of the bedrock below the land's surface, and types and ages of the bedrock in that location. Press the 'below me now' button to instantly get the above information about your current GPS determined location.
+Tap anywhere on the map within Minnesota to get information about the soil, glacial geology, depth of the bedrock below the land's surface, and types and ages of the bedrock in that location. Press the 'under me now' button to instantly get the above information about your current GPS determined location.
 
 # About the data
 
