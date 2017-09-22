@@ -11,7 +11,12 @@
 <ion-content>
   <div ion-fixed id='map' class='mapContainer'></div>
 </ion-content>
-<ion-fab bottom right style="transform: translateY(-65px);">
+<ion-fab bottom left style="transform: translateY(-75px);">
+    <button ion-fab (click)="toggleHillshade()" >
+    	<ion-icon name="md-photos"></ion-icon>
+    </button>
+</ion-fab>
+<ion-fab bottom right style="transform: translateY(-75px);">
     <button ion-fab (click)="fabLocate()" >
     	<ion-icon name="md-locate"></ion-icon>
     </button>

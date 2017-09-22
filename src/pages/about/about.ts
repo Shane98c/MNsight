@@ -27,7 +27,7 @@ export class AboutPage {
       loc.lng,',',loc.lat,
       ')/',
       loc.lng,',',loc.lat,
-      ',12,0,0/800x325@2x?access_token=pk.eyJ1IjoiZmx5b3ZlcmNvdW50cnkiLCJhIjoiNDI2NzYzMmYxMzI5NWYxMDc0YTY5NzRiMzdlZDIyNTAifQ.x4T-qLEzRQMNFIdnkOkHKQ'
+      ',12,0,0/800x325@2x?access_token=pk.eyJ1Ijoic2hhbmU5OGMiLCJhIjoiY2o3dzk2anVtMG5hOTMzbzIyZzZja3ZhMyJ9.JdJS0IEbZZ7S6r3Nr87MJg'
     ].join('');
   }
   showInfoPopover(event) {

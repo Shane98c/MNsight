@@ -8,7 +8,7 @@ import { layers } from '../../shared/layers';
 import * as ArcGISRasterTileSource from 'mapbox-gl-arcgis-tiled-map-service';
 import { PopoverPage } from '../../shared/popover';
 
-const accessToken = 'pk.eyJ1IjoiZmx5b3ZlcmNvdW50cnkiLCJhIjoiNDI2NzYzMmYxMzI5NWYxMDc0YTY5NzRiMzdlZDIyNTAifQ.x4T-qLEzRQMNFIdnkOkHKQ';
+const accessToken = 'pk.eyJ1Ijoic2hhbmU5OGMiLCJhIjoiY2o3dzk2anVtMG5hOTMzbzIyZzZja3ZhMyJ9.JdJS0IEbZZ7S6r3Nr87MJg';
 
 @Component({
   selector: 'page-home',
@@ -36,7 +36,7 @@ export class HomePage {
       maxBounds: this.bounds,
       maxZoom: 17,
       container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v9'
+      style: 'mapbox://styles/mapbox/satellite-streets-v9'
     });
     this.map.on('load', () => {
       //setup initial map state
@@ -47,9 +47,11 @@ export class HomePage {
       });
       this.map.addSource('mnLidar', layers.mnLidarSource);
       this.map.addSource('colorTopo', layers.colorTopoSource);
-      this.map.addLayer(layers.mnLidarLayer, 'waterway-river-canal');
-      this.map.addLayer(layers.colorTopoLayer, 'waterway-river-canal');
+      this.map.addLayer(layers.mnLidarLayer, 'tunnel-secondary-tertiary case');
+      this.map.addLayer(layers.colorTopoLayer, 'tunnel-secondary-tertiary case');
       this.map.setPaintProperty('colorTopo', 'raster-opacity', 0.25);
+      this.map.setLayoutProperty('mnLidar', 'visibility', 'visible');
+      this.map.setLayoutProperty('colorTopo', 'visibility', 'visible');
       let nav = new mapboxgl.NavigationControl();
       this.map.addControl(nav, 'top-left');
       this.map.addControl(new mapboxgl.AttributionControl(), 'top-right');
@@ -153,5 +155,16 @@ export class HomePage {
     popover.present({
       ev: event
     });
+  }
+  toggleHillshade() {
+    let visibility = this.map.getLayoutProperty('mnLidar', 'visibility');
+    console.log(visibility)
+    if (visibility === 'visible') {
+      this.map.setLayoutProperty('mnLidar', 'visibility', 'none');
+      this.map.setLayoutProperty('colorTopo', 'visibility', 'none');
+    } else {
+      this.map.setLayoutProperty('mnLidar', 'visibility', 'visible');
+      this.map.setLayoutProperty('colorTopo', 'visibility', 'visible');
+    }
   }
 }
