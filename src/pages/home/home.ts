@@ -50,8 +50,6 @@ export class HomePage {
       this.map.addLayer(layers.mnLidarLayer, 'tunnel-secondary-tertiary case');
       this.map.addLayer(layers.colorTopoLayer, 'tunnel-secondary-tertiary case');
       this.map.setPaintProperty('colorTopo', 'raster-opacity', 0.25);
-      this.map.setLayoutProperty('mnLidar', 'visibility', 'visible');
-      this.map.setLayoutProperty('colorTopo', 'visibility', 'visible');
       let nav = new mapboxgl.NavigationControl();
       this.map.addControl(nav, 'top-left');
       this.map.addControl(new mapboxgl.AttributionControl(), 'top-right');
@@ -156,14 +154,15 @@ export class HomePage {
       ev: event
     });
   }
+  private topoVis = true;
   toggleHillshade() {
-    let visibility = this.map.getLayoutProperty('mnLidar', 'visibility');
-    if (visibility === 'visible') {
-      this.map.setLayoutProperty('mnLidar', 'visibility', 'none');
-      this.map.setLayoutProperty('colorTopo', 'visibility', 'none');
+    this.topoVis =! this.topoVis;
+    if (this.topoVis === false) {
+      this.map.setPaintProperty('mnLidar', 'raster-opacity', 0);
+      this.map.setPaintProperty('colorTopo', 'raster-opacity', 0);
     } else {
-      this.map.setLayoutProperty('mnLidar', 'visibility', 'visible');
-      this.map.setLayoutProperty('colorTopo', 'visibility', 'visible');
+      this.map.setPaintProperty('mnLidar', 'raster-opacity', 1);
+      this.map.setPaintProperty('colorTopo', 'raster-opacity', 0.25);
     }
   }
 }
