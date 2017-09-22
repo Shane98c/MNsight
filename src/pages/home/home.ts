@@ -158,7 +158,6 @@ export class HomePage {
   }
   toggleHillshade() {
     let visibility = this.map.getLayoutProperty('mnLidar', 'visibility');
-    console.log(visibility)
     if (visibility === 'visible') {
       this.map.setLayoutProperty('mnLidar', 'visibility', 'none');
       this.map.setLayoutProperty('colorTopo', 'visibility', 'none');
