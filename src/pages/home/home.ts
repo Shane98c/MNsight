@@ -52,7 +52,8 @@ export class HomePage {
       this.map.addLayer(layers.colorTopoLayer, 'tunnel-secondary-tertiary case');
       this.map.setPaintProperty('colorTopo', 'raster-opacity', 0.25);
       let nav = new mapboxgl.NavigationControl();
-      this.map.addControl(nav, 'top-left');
+      this.map.dragRotate.disable();
+      this.map.touchZoomRotate.disableRotation();
       this.map.addControl(new mapboxgl.AttributionControl(), 'top-right');
       this.addLocationMarker(8);
     })
