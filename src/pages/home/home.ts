@@ -35,6 +35,7 @@ export class HomePage {
       zoom: 7,
       maxBounds: this.bounds,
       maxZoom: 17,
+      minZoom: 7,
       container: 'map',
       style: 'mapbox://styles/mapbox/satellite-streets-v9'
     });
@@ -63,7 +64,7 @@ export class HomePage {
   addLocationMarker(zoom): void {
     let el = document.createElement('div');
     el.id = 'marker';
-    this.locationMarker = new mapboxgl.Marker(el)
+    this.locationMarker = new mapboxgl.Marker(el, {offset: [-18/2, -18/2]});
     this.locService.watchLocation()
       .subscribe(
         res => {
