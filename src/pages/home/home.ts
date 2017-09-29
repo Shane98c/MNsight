@@ -54,7 +54,8 @@ export class HomePage {
       let nav = new mapboxgl.NavigationControl();
       this.map.dragRotate.disable();
       this.map.touchZoomRotate.disableRotation();
-      this.map.addControl(new mapboxgl.AttributionControl(), 'top-right');
+      this.map.addControl(new mapboxgl.ScaleControl({maxWidth: 100, unit: 'metric'}), 'top-left');
+      this.map.addControl(new mapboxgl.AttributionControl(), 'bottom-right');
       this.addLocationMarker(8);
     })
     this.map.on('click', (e) => {
