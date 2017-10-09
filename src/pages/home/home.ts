@@ -37,7 +37,7 @@ export class HomePage {
       maxZoom: 17,
       minZoom: 7,
       container: 'map',
-      style: 'mapbox://styles/mapbox/satellite-streets-v9'
+      style: 'mapbox://styles/mapbox/satellite-streets-v9?optimize=true'
     });
     this.map.on('load', () => {
       //setup initial map state
