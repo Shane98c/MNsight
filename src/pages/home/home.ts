@@ -70,18 +70,20 @@ export class HomePage {
     this.locService.watchLocation()
       .subscribe(
         res => {
-          this.currentLocation = [res.coords.longitude, res.coords.latitude];
-          this.locationMarker
-            .setLngLat(this.currentLocation)
-            .addTo(this.map);
-        },
-        err => {
-          let toast = this.toastCtrl.create({
-            message: 'Geolocation unavailable',
-            duration: 3000,
-            position: 'top'
-          });
-          toast.present();
+          console.log(res)
+          if (res.coords) {
+            this.currentLocation = [res.coords.longitude, res.coords.latitude];
+            this.locationMarker
+              .setLngLat(this.currentLocation)
+              .addTo(this.map);
+          } else {
+            let toast = this.toastCtrl.create({
+              message: 'Geolocation unavailable',
+              duration: 3000,
+              position: 'top'
+            });
+            toast.present();
+          }
         }
     );
 

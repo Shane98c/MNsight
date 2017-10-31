@@ -5,6 +5,7 @@ import { AboutPage } from '../pages/about/about';
 import { HomePage } from '../pages/home/home';
 import { PopoverPage } from '../shared/popover';
 import { InfoPage } from '../pages/info/info';
+import { Geolocation } from '@ionic-native/geolocation';
 
 
 @NgModule({
@@ -28,6 +29,6 @@ import { InfoPage } from '../pages/info/info';
     InfoPage,
     PopoverPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, Geolocation]
 })
 export class AppModule {}
