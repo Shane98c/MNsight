@@ -1,10 +1,15 @@
 # MNsight
-Mobile app to visualize landscape and geological data from the [Minnesota Geological Survey](http://www.mngs.umn.edu/) and [MN Department of National Resources](http://www.dnr.state.mn.us/index.html).
+MNsight is a mobile app to visualize landscape and geological data from the [Minnesota Geological Survey](http://www.mngs.umn.edu/) and [MN Department of National Resources](http://www.dnr.state.mn.us/index.html).
+
+[Online demo](http://z.umn.edu/mngeo)
+
+[Apple App Store](https://itunes.apple.com/us/app/mnsight/id1304610283?ls=1&mt=8)
+
+[Google Play](https://play.google.com/store/apps/details?id=com.MNsight.geo&hl=en)
+
 
 ![image](https://cloud.githubusercontent.com/assets/14908734/26281440/e5431b02-3dbb-11e7-8bca-b34f2e20d108.png)
 ![image](https://cloud.githubusercontent.com/assets/14908734/26281434/bede27ea-3dbb-11e7-84fe-208cddf27f8b.png)
-
-demo: http://z.umn.edu/mngeo
 
 # Using MNsight
 
