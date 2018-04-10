@@ -18,10 +18,10 @@ Tap anywhere on the map within Minnesota to get information about the soil, glac
 # About the data
 
 **Elevation maps via MnTOPO**  
-[MnTOPO](http://dnr.state.mn.us/maps/mntopo/index.html) is a collaborative effort between staff from the Minnesota Information Technology (MN.IT) @ Minnesota Department of Natural Resources and MN.IT @ Minnesota Geospatial Information Office (MnGeo). Funding was provided by the Clean Water Fund of the Clean Water, Land and Legacy Amendment. The project is made possible by the [Minnesota elevation mapping project](http://www.mngeo.state.mn.us/committee/elevation/mn_elev_mapping.html).  
+> [MnTOPO](http://dnr.state.mn.us/maps/mntopo/index.html) is a collaborative effort between staff from the Minnesota Information Technology (MN.IT) @ Minnesota Department of Natural Resources and MN.IT @ Minnesota Geospatial Information Office (MnGeo). Funding was provided by the Clean Water Fund of the Clean Water, Land and Legacy Amendment. The project is made possible by the [Minnesota elevation mapping project](http://www.mngeo.state.mn.us/committee/elevation/mn_elev_mapping.html).
 
 **Subsurface information via MN DNR**  
-Data accessed using the DNR's [What's Under Your House?](http://www.dnr.state.mn.us/lands_minerals/webmaps/geomap.html) app.  
+> Data accessed using the DNR's [What's Under Your House?](http://www.dnr.state.mn.us/lands_minerals/webmaps/geomap.html) app.  
 Original data from [Minnesota Geological Survey](http://www.mngs.umn.edu/) and the U.S. Dept. Of Agriculture compiled and generalized by the DNR.
 
 # Support
